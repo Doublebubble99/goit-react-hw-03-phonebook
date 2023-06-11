@@ -12,9 +12,11 @@ class App extends Component {
   componentDidMount() {
     const store = localStorage.getItem('contacts');
     const parsedStorage = JSON.parse(store);
-    this.setState({
-      contacts: parsedStorage,
-    });
+    if (parsedStorage) {
+      this.setState({
+        contacts: parsedStorage,
+      });
+    }
   }
   componentDidUpdate(_, prevState) {
     const { contacts } = this.state;
