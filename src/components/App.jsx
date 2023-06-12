@@ -34,32 +34,27 @@ class App extends Component {
     const { contacts } = this.state;
     const item = { ...data, id: nanoid() };
     const isExistingName = contacts.find(({ name }) => name === data.name);
-
-    this.containSameName(isExistingName, item);
-  };
-  containSameName = (isExistingName, item) => {
-    const { contacts } = this.state;
     if (isExistingName) {
       alert(`${isExistingName.name} is already in contacts`);
       return;
     }
-    this.setState({
-      contacts: [...contacts, item],
-    });
+    this.setState(prevState => ({
+      contacts: [...prevState.contacts, item],
+    }));
   };
   handleRemoveItem = ({ target }) => {
     const { contacts } = this.state;
     const filteredByID = contacts.filter(({ id }) => id !== target.id);
-    this.setState({
+    this.setState(prevState => ({
       contacts: filteredByID,
-    });
+    }));
   };
   render() {
     const { contacts, filter } = this.state;
     const filterNormalize = filter.toLowerCase();
-    const existingName = contacts.filter(({ name }) =>
-      name.toLowerCase().includes(filterNormalize.trim())
-    );
+    const existingName = contacts.filter(({ name }) => {
+      return name.toLowerCase().includes(filterNormalize.trim());
+    });
     return (
       <section>
         <ContactForm addContact={this.addContact} />
