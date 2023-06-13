@@ -43,10 +43,8 @@ class App extends Component {
     }));
   };
   handleRemoveItem = ({ target }) => {
-    const { contacts } = this.state;
-    const filteredByID = contacts.filter(({ id }) => id !== target.id);
     this.setState(prevState => ({
-      contacts: [...prevState.contacts, filteredByID],
+      contacts: prevState.contacts.filter(({ id }) => id !== target.id),
     }));
   };
   render() {
@@ -74,5 +72,3 @@ class App extends Component {
   }
 }
 export default App;
-///
-///
